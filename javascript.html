@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+<meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number to Words</title>
+<style>
+body {
+font-family: Arial, sans-serif; text-align: center;
+margin-top: 50px;
+}
+.output { color: green; font-weight: bold; font-size: 20px; margin-top: 20px;
+}
+</style> <script>
+const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]; const teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
+"Seventeen", "Eighteen", "Nineteen"];
+const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+function convertToWords(num) { if (num === "0") return "Zero"; num = parseInt(num);
+if (isNaN(num) || num < 0 || num > 999) return "Invalid input";
+let words = "";
+if (num >= 100) {
+words += ones[Math.floor(num / 100)] + " Hundred "; num %= 100;
+}
+if (num >= 10 && num <= 19) { words += teens[num - 10];
+} else { words += tens[Math.floor(num / 10)]; if (num % 10 !== 0) { words += " " + ones[num % 10]; } }
+return words.trim();
+}
+ function validateAndConvert() { let inputField = document.getElementById("numberInput"); let outputField = document.getElementById("output"); let inputValue = inputField.value.trim();
+ if (!/^[0-9]{1,3}$/.test(inputValue)) {
+outputField.textContent = "Please enter a valid number (0-999)"; return;
+}
+outputField.textContent = convertToWords(inputValue);
+}
+</script> </head>
+<body>
+<h1>Number to Words Converter</h1>
+<input type="text" id="numberInput" placeholder="Enter number (0-999)" maxlength="3" oninput="validateAndConvert()">
+<div id="output" class="output"></div>
+</body> </html>
